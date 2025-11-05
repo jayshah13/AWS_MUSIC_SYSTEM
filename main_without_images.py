@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 from flask import Flask, render_template, request, redirect, session, url_for, flash
 from login import login_blueprint
 from register import register_blueprint
