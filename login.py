@@ -5,7 +5,7 @@ import boto3
 login_blueprint = Blueprint('login', __name__, template_folder='templates')
 
 # DynamoDB setup
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 login_table = dynamodb.Table('login')
 
 @login_blueprint.route('/login', methods=['GET', 'POST'])

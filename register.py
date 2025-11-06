@@ -4,7 +4,7 @@ import boto3
 register_blueprint = Blueprint('register', __name__, url_prefix='/register', template_folder='templates')
 
 # DynamoDB setup and referreicing the login table made in task 1 (also carried forward in login.py)
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 login_table = dynamodb.Table('login')
 
 @register_blueprint.route('/', methods=['GET', 'POST'])

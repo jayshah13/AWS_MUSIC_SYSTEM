@@ -3,7 +3,7 @@ import json
 import requests
 
 # Creating an S3 client
-s3 = boto3.client('s3')
+s3 = boto3.client('s3', region_name='us-east-1')
 
 # Creating a new S3 bucket
 bucket_name = 'music-app-images'
