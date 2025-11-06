@@ -2,7 +2,7 @@ import boto3
 import json
 
 # DynamoDB setup
-dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
 
 # Creating the 'login' table with sample data
 login_table_name = 'login'
