@@ -13,13 +13,13 @@ app.secret_key = '\xa4\xa5y\x14\xb7\xff.m|i'
 API_BASE_URL = 'https://{api-id}.execute-api.{region}.amazonaws.com/{stage}'
 
 # DynamoDB setup
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 music_table = dynamodb.Table('music')
 subscription_table = dynamodb.Table('subscription')
 
 # S3 setup to display images
-s3 = boto3.client('s3')
-bucket_name = 'music-app-images'
+s3 = boto3.client('s3', region_name='us-east-1')
+bucket_name = 'music-images-00707'
 
 @app.route('/')
 def index():
