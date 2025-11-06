@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Query</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: radial-gradient(circle at top left, #3a0ca3, #240046, #10002b);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .query-container {
+            width: 500px;
+            padding: 40px;
+            background: rgba(25, 20, 40, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 0 25px rgba(0, 191, 255, 0.3);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .query-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #3ecfff;
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.18);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 20px;
+            color: #e9e9e9; /* ✅ readable text */
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-control::placeholder {
+            color: rgba(220, 220, 220, 0.7);
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.28);
+            color: #fff;
+            box-shadow: 0 0 10px #00b4d8;
+            outline: none;
+        }
+
+        .btn-primary {
+            width: 100%;
+            border-radius: 30px;
+            padding: 12px;
+            background: linear-gradient(90deg, #0096c7, #00b4d8, #48cae4);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 15px rgba(0, 180, 216, 0.4);
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(0, 180, 216, 0.6);
+        }
+
+        label {
+            color: #cce8ff;
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="query-container">
+        <h2>Search Music 🎶</h2>
+        <form action="/query" method="post">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Song title">
+            </div>
+            <div class="form-group">
+                <label for="artist">Artist:</label>
+                <input type="text" class="form-control" id="artist" name="artist" placeholder="Artist name">
+            </div>
+            <div class="form-group">
+                <label for="year">Year:</label>
+                <input type="text" class="form-control" id="year" name="year" placeholder="Release year">
+            </div>
+            <button type="submit" class="btn btn-primary">Query</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: radial-gradient(circle at top left, #3a0ca3, #240046, #10002b);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px 0;
+        }
+
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(25, 20, 40, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 191, 255, 0.3);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .main-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #48cae4;
+            text-shadow: 0 0 8px rgba(0, 180, 216, 0.4);
+            font-weight: 600;
+        }
+
+        .main-container h3 {
+            color: #90e0ef;
+            border-left: 4px solid #48cae4;
+            padding-left: 10px;
+            margin-bottom: 20px;
+        }
+
+        .table {
+            color: #e9ecef;
+            background: rgba(255, 255, 255, 0.05);
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        .table thead th {
+            background: rgba(0, 180, 216, 0.15);
+            border: none;
+            text-align: center;
+            color: #ade8f4;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table tbody tr {
+            background: rgba(255, 255, 255, 0.08);
+            transition: transform 0.25s ease, background 0.25s ease;
+            border-radius: 12px;
+        }
+
+        .table tbody tr:hover {
+            transform: translateY(-4px);
+            background: rgba(0, 180, 216, 0.12);
+        }
+
+        .table td, .table th {
+            vertical-align: middle;
+            text-align: center;
+            border: none;
+        }
+
+        .table img {
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 191, 255, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #0096c7, #00b4d8, #48cae4);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 15px;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 0 12px rgba(0, 180, 216, 0.4);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 180, 216, 0.6);
+        }
+
+        .btn-danger {
+            background: linear-gradient(90deg, #ef233c, #d90429);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 15px;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 0 12px rgba(239, 35, 60, 0.4);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-danger:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(239, 35, 60, 0.6);
+        }
+
+        .btn-secondary {
+            border-radius: 25px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: #caf0f8;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        .mt-4 .btn {
+            margin-right: 10px;
+        }
+
+        p {
+            color: #dee2e6;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-container">
+            <h2>Welcome, {{ username }}!</h2>
+
+            <div>
+                <h3>Your Subscriptions</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Artist</th>
+                            <th>Year</th>
+                            <th>Image</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for subscription in subscriptions %}
+                            <tr>
+                                <td>{{ subscription.title }}</td>
+                                <td>{{ subscription.artist }}</td>
+                                <td>{{ subscription.year }}</td>
+                                <td>
+                                    <img src="{{ subscription.image_url }}" alt="{{ subscription.artist }}" width="100">
+                                </td>
+                                <td>
+                                    <form action="{{ url_for('unsubscribe') }}" method="post">
+                                        <input type="hidden" name="title" value="{{ subscription.title }}">
+                                        <input type="hidden" name="artist" value="{{ subscription.artist }}">
+                                        <button type="submit" class="btn btn-danger">Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <h3>Query Results</h3>
+                {% if query_results %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Artist</th>
+                                <th>Year</th>
+                                <th>Image</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in query_results %}
+                                <tr>
+                                    <td>{{ result.title }}</td>
+                                    <td>{{ result.artist }}</td>
+                                    <td>{{ result.year }}</td>
+                                    <td>
+                                        <img src="{{ result.image_url }}" alt="{{ result.artist }}" width="100">
+                                    </td>
+                                    <td>
+                                        <form action="/subscribe" method="post">
+                                            <input type="hidden" name="title" value="{{ result.title }}">
+                                            <input type="hidden" name="artist" value="{{ result.artist }}">
+                                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No results found.</p>
+                {% endif %}
+            </div>
+
+            <div class="mt-4 text-center">
+                <a href="/query" class="btn btn-primary">Query</a>
+                <a href="/logout" class="btn btn-secondary">Logout</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

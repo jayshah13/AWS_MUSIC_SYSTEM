@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: radial-gradient(circle at top left, #3a0ca3, #240046, #10002b);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .register-container {
+            width: 380px;
+            padding: 40px;
+            background: rgba(25, 20, 40, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 0 25px rgba(0, 191, 255, 0.3);
+            text-align: center;
+        }
+
+        .register-container h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #3ecfff;
+            margin-bottom: 30px;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.18);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 20px;
+            color: #e9e9e9;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-control::placeholder {
+            color: rgba(220, 220, 220, 0.7);
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.28);
+            color: #fff;
+            box-shadow: 0 0 10px #00b4d8;
+            outline: none;
+        }
+
+        .btn-primary {
+            width: 100%;
+            border-radius: 30px;
+            padding: 12px;
+            background: linear-gradient(90deg, #0096c7, #00b4d8, #48cae4);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 15px rgba(0, 180, 216, 0.4);
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(0, 180, 216, 0.6);
+        }
+
+        p {
+            color: #ccc;
+            margin-top: 15px;
+        }
+
+        a {
+            color: #00b4d8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Register</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="/register" method="post">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <p>Already have an account? <a href="/login">Login here</a>.</p>
+    </div>
+</body>
+</html>
