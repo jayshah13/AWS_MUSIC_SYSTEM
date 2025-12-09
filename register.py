@@ -3,7 +3,7 @@ import boto3
 
 register_blueprint = Blueprint('register', __name__, url_prefix='/register', template_folder='templates')
 
-# DynamoDB setup and referreicing the login table made in task 1 (also carried forward in login.py)
+# DynamoDB setup and referencing the login table made in task 1 (also carried forward in login.py)
 dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 login_table = dynamodb.Table('login')
 
@@ -15,11 +15,22 @@ def register():
         password = request.form['password']
 
         # Checking if the email already exists in DynamoDB
-        response = login_table.get_item(Key={'email': email})
-        user_exists = 'Item' in response
+        email_response = login_table.get_item(Key={'email': email})
+        email_exists = 'Item' in email_response
 
-        if user_exists:
+        # Checking if the username already exists in DynamoDB
+        username_response = login_table.scan(
+            FilterExpression='user_name = :username',
+            ExpressionAttributeValues={':username': username}
+        )
+        username_exists = bool(username_response['Items'])
+
+        if email_exists:
             flash('The email already exists.', 'error')
+            return render_template('register.html')
+        elif username_exists:
+            flash('The username already exists. Please choose a different username.', 'error')
+            return render_template('register.html')
         else:
             # Creating new user in DynamoDB
             user_data = {
