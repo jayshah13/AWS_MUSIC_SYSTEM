@@ -109,13 +109,13 @@ The application allows users to:
 - Clone your project repository to the EC2 instance.
 
   ```bash
-  git clone https://github.com/reyiyama/aws-cloud-music-app.git
+  git clone https://github.com/jayshah13/AWS_MUSIC_SYSTEM.git
   ```
 
 - Navigate to the project directory:
 
   ```bash
-  cd aws-cloud-music-app
+  cd AWS_MUSIC_SYSTEM
   ```
 
 ### 5. Configure AWS Credentials
