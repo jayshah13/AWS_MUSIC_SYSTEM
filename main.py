@@ -19,7 +19,7 @@ subscription_table = dynamodb.Table('subscription')
 
 # S3 setup to display images
 s3 = boto3.client('s3', region_name='us-east-1')
-bucket_name = 'music-images-00707'
+bucket_name = 'music-image-007'
 
 @app.route('/')
 def index():

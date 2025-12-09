@@ -6,7 +6,7 @@ import requests
 s3 = boto3.client('s3', region_name='us-east-1')
 
 # Creating a new S3 bucket
-bucket_name = 'music-app-images'
+bucket_name = 'music-image-007'
 s3.create_bucket(Bucket=bucket_name)
 
 # Loading data from a1.json
