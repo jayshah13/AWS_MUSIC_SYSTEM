@@ -12,7 +12,7 @@ app.register_blueprint(register_blueprint)
 app.secret_key = '\xa4\xa5y\x14\xb7\xff.m|i'
 
 # DynamoDB setup
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 music_table = dynamodb.Table('music')
 subscription_table = dynamodb.Table('subscription')
 
@@ -20,7 +20,7 @@ subscription_table = dynamodb.Table('subscription')
 API_BASE_URL = 'https://{api-id}.execute-api.{region}.amazonaws.com/{stage}'
 
 # S3 setup
-s3 = boto3.client('s3')
+s3 = boto3.client('s3', region_name='us-east-1')
 bucket_name = 'music-image-007'
 
 @app.route('/')
