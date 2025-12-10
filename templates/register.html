@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>Register</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             background: radial-gradient(circle at top left, #3a0ca3, #240046, #10002b);
@@ -85,11 +86,20 @@
         a:hover {
             text-decoration: underline;
         }
+
+        .password-hint {
+            font-size: 0.8rem;
+            color: #bbb;
+            margin-top: -12px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
     <div class="register-container">
         <h2>Register</h2>
+
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -97,14 +107,26 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <form action="/register" method="post">
-            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
-            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+
+        <!-- note the trailing slash to match the blueprint url_prefix -->
+        <form action="/register/" method="post">
+            <input type="text" class="form-control" id="first_name" name="first_name"
+                   placeholder="First Name" required>
+            <input type="text" class="form-control" id="last_name" name="last_name"
+                   placeholder="Last Name" required>
+            <input type="email" class="form-control" id="email" name="email"
+                   placeholder="Email" required>
+            <input type="text" class="form-control" id="username" name="username"
+                   placeholder="Username" required>
+            <input type="password" class="form-control" id="password" name="password"
+                   placeholder="Password" required>
+            <div class="password-hint">
+                Password must be at least 8 characters and include uppercase, lowercase,
+                number, and special character.
+            </div>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
+
         <p>Already have an account? <a href="/login">Login here</a>.</p>
     </div>
 </body>
