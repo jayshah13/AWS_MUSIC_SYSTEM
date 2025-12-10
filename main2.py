@@ -21,7 +21,7 @@ API_BASE_URL = 'https://{api-id}.execute-api.{region}.amazonaws.com/{stage}'
 
 # S3 setup
 s3 = boto3.client('s3')
-bucket_name = 'music-app-images'
+bucket_name = 'music-image-007'
 
 @app.route('/')
 def index():
