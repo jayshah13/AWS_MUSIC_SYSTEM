@@ -99,7 +99,7 @@ def query():
         if not query_results:
             flash("No result is retrieved. Please query again.", 'info')
 
-        return render_template('main.html', query_results=query_results, show_subscribe=True, first_name=session.get('first_name'))
+        return render_template('main.html', query_results=query_results, show_subscribe=True, username=session.get('username'))
 
     return render_template('query.html')
 
