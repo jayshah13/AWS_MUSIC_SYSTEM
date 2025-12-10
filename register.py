@@ -1,15 +1,18 @@
 from flask import Blueprint, render_template, request, redirect, flash
 import boto3
 
-register_blueprint = Blueprint('register', __name__, url_prefix='/register', template_folder='templates')
+register_blueprint = Blueprint('register', __name__,
+                               url_prefix='/register',
+                               template_folder='templates')
 
-# DynamoDB setup and referencing the login table made in task 1 (also carried forward in login.py)
 dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 login_table = dynamodb.Table('login')
 
 @register_blueprint.route('/', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
         email = request.form['email']
         username = request.form['username']
         password = request.form['password']
@@ -32,11 +35,12 @@ def register():
             flash('The username already exists. Please choose a different username.', 'error')
             return render_template('register.html')
         else:
-            # Creating new user in DynamoDB
             user_data = {
                 'email': email,
                 'user_name': username,
-                'password': password
+                'password': password,
+                'first_name': first_name,
+                'last_name': last_name
             }
             login_table.put_item(Item=user_data)
             flash('Registration successful! Please login.', 'success')
