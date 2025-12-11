@@ -45,7 +45,8 @@ def main():
     # Retrieving artist images from S3
     for subscription in subscriptions:
         artist = subscription['artist']
-        image_name = f"{artist}.jpg"
+        s3_key_artist = artist.replace(" ", "")  # "Dave Matthews" -> "DaveMatthews"
+        image_name = f"{s3_key_artist}.jpg"
         image_url = s3.generate_presigned_url(
             'get_object',
             Params={'Bucket': bucket_name, 'Key': image_name},
