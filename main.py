@@ -129,12 +129,17 @@ def subscribe():
 
 @app.route('/unsubscribe', methods=['POST'])
 def unsubscribe():
-    email = session['email']
-    title = request.form['title']
-    artist = request.form['artist']
+    if 'email' not in session:
+        flash('Please login to access this page.', 'info')
+        return redirect('/login')
 
-    # Remove subscription from DynamoDB
-    subscription_table.delete_item(Key={'email': email, 'title': title, 'artist': artist})
+    email = session['email']
+    title = request.form.get('title')
+    artist = request.form.get('artist')  # optional, not used in key
+
+    subscription_table.delete_item(
+        Key={'email': email, 'title': title}
+    )
 
     flash('Subscription removed successfully!', 'info')
     return redirect(url_for('main'))
