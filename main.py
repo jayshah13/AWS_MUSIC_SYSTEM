@@ -89,7 +89,8 @@ def query():
         # Retrieving artist images from S3
         for result in query_results:
             artist = result['artist']
-            image_name = f"{artist}.jpg"
+            s3_key_artist = artist.replace(" ", "")  # e.g. "Dave Matthews" -> "DaveMatthews"
+            image_name = f"{s3_key_artist}.jpg"
             image_url = s3.generate_presigned_url(
                 'get_object',
                 Params={'Bucket': bucket_name, 'Key': image_name},
@@ -100,7 +101,12 @@ def query():
         if not query_results:
             flash("No result is retrieved. Please query again.", 'info')
 
-        return render_template('main.html', query_results=query_results, show_subscribe=True, username=session.get('username'))
+        return render_template(
+            'main.html',
+            query_results=query_results,
+            show_subscribe=True,
+            username=session.get('username')
+        )
 
     return render_template('query.html')
 
